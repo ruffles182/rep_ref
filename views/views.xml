@@ -32,47 +32,42 @@
             </xpath>
         </field>
     </record>
-<!-- 
 
-<odoo>
-    <record id="view_form_repair_extend" model="ir.ui.view">
-        <field name="name">Repair Repair form inherit</field>
-        <field name="model">repair.order</field>
-        <field name="inherit_id" ref="repair.view_repair_order_form"/>
+    <!-- reporte -->
+    <record model="ir.ui.view" id="rep_ref_reparador_report_wizard">
+        <field name="name">Reparador  Reporte</field>
+        <field name="model">rep_ref.reporte.wizard</field>
+        <field name="type">form</field>
         <field name="arch" type="xml">
-            <field name="product_id" position="after">
-                <field name="employee_reparador" domain="[('active', '=', True)]"/>
-            </field>
+            <form string="Reparador Reporte">
+                <group>
+                    <field name="reparador" />
+                </group>
+                <group>
+                    <group>
+                        <field name="date_start"/>
+                    </group>
+                    <group>
+                        <field name="date_end"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="get_report" string="Get Report" type="object" class="oe_highlight"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
         </field>
     </record>
 
-    <record id="view_list_repair_extend" model="ir.ui.view">
-        <field name="name">Repair Repair list inherit</field>
-        <field name="model">repair.order</field>
-        <field name="inherit_id" ref="repair.view_repair_order_tree"/>
-        <field name="arch" type="xml">
-            <xpath expr="/tree" position="replace">
-                <tree string="Repairs order" decoration-muted="state in ('done','cancel')" decoration-info="state=='draft'">
-                    <field name="product_id" />
-                    <field name="employee_reparador" />
-                    <field name="partner_id"/>
-                    <field name="state"/>
-                    <field name="fecha_recibido" />
-                    <field name="entregado_estatus" />
-                    <field name="fecha_reparado" />
-                </tree>
-            </xpath>
-        </field>
-    </record>
+    <act_window id="action_rep_ref_reparador_report_wizard"
+                name="Reparador Reporte"
+                res_model="rep_ref.reporte.wizard"
+                view_mode="form"
+                target="new"/>
 
-    <record id="view_select_repair_extend" model="ir.ui.view">
-        <field name="name">Repair Repair select inherit</field>
-        <field name="model">repair.order</field>
-        <field name="inherit_id" ref="repair.view_repair_order_form_filter"/>
-        <field name="arch" type="xml">
-            <field name="name" position="replace">
-                <field name="partner_id" string="Cliente"/>
-            </field>
-        </field>
-    </record> -->
+    <menuitem action="rep_ref.action_rep_ref_reparador_report_wizard"
+              id="menu_reparador_report_wizard"
+              parent="repair.repair_menu_reporting"
+              name="Reporte de reparador" /> 
+    
 </odoo>

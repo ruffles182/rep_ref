@@ -1,24 +1,82 @@
 <odoo>
-    <data>
-<!--
-        <template id="listing">
-          <ul>
-            <li t-foreach="objects" t-as="object">
-              <a t-attf-href="#{ root }/objects/#{ object.id }">
-                <t t-esc="object.display_name"/>
-              </a>
-            </li>
-          </ul>
-        </template>
-        <template id="object">
-          <h1><t t-esc="object.display_name"/></h1>
-          <dl>
-            <t t-foreach="object._fields" t-as="field">
-              <dt><t t-esc="field"/></dt>
-              <dd><t t-esc="object[field]"/></dd>
-            </t>
-          </dl>
-        </template>
--->
-    </data>
+    <odoo>
+    <record model="report.paperformat" id="paperformat_reparador_report">
+        <field name="name">paperformat.attendance.recap.report</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_width">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">30</field>
+        <field name="margin_right">5</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">20</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <report id="reparador_report"
+            model="rep_ref.reporte.wizard"
+            string="Reparador Reporte"
+            report_type="qweb-pdf"
+            name="rep_ref.reparador_report_view"
+            paperformat="paperformat_reparador_report"
+            menu="False"/>
+
+    <template id="reparador_report_view">
+        <t t-call="web.html_container">
+            <div class="header" style="border-bottom: 2px solid black">
+                <h3 class="text-center">  <t t-esc="employee" /> </h3>
+                <h4 class="text-center">
+                    <strong>Del</strong>:
+                    <t t-esc="date_start"/>
+                    <strong>Al</strong>:
+                    <t t-esc="date_end"/>
+                </h4>
+            </div>
+            <div class="article">
+              <div>
+                <h2>Total de servicios: <t t-esc="revisiones"/></h2>
+              </div>
+                <table class="table table-condensed table-bordered" style="width: 100%">
+                    <thead>
+                        <th class="text-center" style="width: 15%">No. Folio</th>
+                        <th class="text-center" style="width: 15%">Efectivo</th>
+                        <th class="text-center" style="width: 15%">Tiempo</th>
+                        <th class="text-center" style="width: 15%">Piezas</th>
+                        <th class="text-center" style="width: 15%">Gastos</th>
+                        <th class="text-center" style="width: 15%">Total</th>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="docs" t-as="doc">
+                            <tr>
+                                <td>
+                                    <span t-esc="doc['folio']"/>
+                                </td>
+                                <td class="text-center">
+                                    <span t-esc="doc['efectivo']"/>
+                                </td>
+                                <td class="text-center">
+                                    <span t-esc="doc['tiempo']"/>
+                                </td>
+                                <td>
+                                    pendiente
+                                </td>
+                                <td class="text-center">
+                                    <span t-esc="doc['gastos']"/>
+                                </td>
+                                <td class="text-center">
+                                    <span t-esc="doc['total']"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+        
+    </template>
+</odoo>
+
 </odoo>
